@@ -1,0 +1,23 @@
+sudo: required
+services:
+    - docker
+
+before_install:
+    - docker build -t vekselman/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+    - docker run -e CI=true vekselman/react-test npm test
+
+after_success:
+    - docker build -t vekselman/complex-client ./client
+    - docker build -t vekselman/complex-server ./server
+    - docker build -t vekselman/complex-nginx ./nginx
+    - docker build -t vekselman/complex-worker ./worker
+    # Log in to the docker CLI with encrypted env variables in travis
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    # Take thous images and push them to docker hub
+    - docker push vekselman/complex-client
+    - docker push vekselman/complex-server
+    - docker push vekselman/complex-nginx
+    - docker push vekselman/complex-worker
+language: generic
