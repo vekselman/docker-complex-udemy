@@ -1,0 +1,40 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefenitions": [
+      {
+        "name": "client",
+        "image": "vekselman/complex-client",
+        "hostname": "client",
+        "essential": false,
+        "memory": "SPECIFY IN MB AFTER RESEARCH"
+      },
+      {
+        "name": "server",
+        "image": "vekselman/complex-server",
+        "hostname": "api",
+        "essential": false,
+        "memory": "SPECIFY IN MB AFTER RESEARCH" 
+      },
+      {
+        "name": "worker",
+        "image": "vekselman/complex-worker",
+        "hostname": "worker",
+        "essential": false,
+        "memory": "SPECIFY IN MB AFTER RESEARCH"
+      },
+      {
+        "name": "nginx",
+        "image": "vekselman/complex-nginx",
+        "hostname": "nginx",
+        "essential": true,
+        "ports": [
+            {
+                "hostPort": 80,
+                "containerPort": 80
+            }
+        ],
+        "links":["client", "server"],
+        "memory": "SPECIFY IN MB AFTER RESEARCH"
+      }
+    ]
+}

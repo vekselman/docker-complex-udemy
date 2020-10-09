@@ -20,4 +20,18 @@ after_success:
     - docker push vekselman/complex-server
     - docker push vekselman/complex-nginx
     - docker push vekselman/complex-worker
+
+# Uncomment next lines when AWS env will be created and configured properly 
+# deploy:
+#     edge: true
+#     provider: elasticbeanstalk
+#     region: us-east-2
+#     app: docker-complex-udemy
+#     env: DockerComplexUdemy-env
+#     bucket_name: <BUCKET_NAME>
+#     bucket_path: docker-complex-udemy
+#     on:
+#         brach: master
+#     access_key_id: $AWS_ACCESS_KEY
+#     secret_access_key: $AWS_SECRET_KEY 
 language: generic
